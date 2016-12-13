@@ -1,0 +1,20 @@
+{
+  "name": "belltower",
+  "version": "0.1.0",
+  "description": "A minimal reverseProxy",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "",
+  "keywords": [],
+  "author": "grayoverride",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "1.4.1"
+  },
+  "dependencies": {
+    "express": "4.14.0",
+    "http-proxy": "1.16.2"
+  }
+}
