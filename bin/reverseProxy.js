@@ -5,11 +5,8 @@ var ip = require('ip');
 var httpProxy = require('http-proxy');
 var apiProxy = httpProxy.createProxyServer();
 const ipc = require('electron').ipcMain;
-let proxyTarget = 'http://localhost:8080';
-let proxyEndpointPort = 9090;
 
 proxyServer.all("/", function (req, res, proxyTarget) {
-  console.log(req);
   apiProxy.web(req, res, { target: proxyTarget });
 });
 
@@ -17,7 +14,6 @@ proxyServer.all("/", function (req, res, proxyTarget) {
 ////////////////
 let mainServer;
 function startServer(event, arg) {
-  console.log(arg);
   var currentIp = ip.address();
   arg.targetIn = "http://localhost:"+arg.targetIn;
     mainServer = proxyServer.listen(parseInt(arg.targetOut), '0.0.0.0',arg.targetIn, function () {
