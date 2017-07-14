@@ -7,7 +7,10 @@ const startBtn = document.getElementById('startSrv')
 const stopBtn = document.getElementById('stopSrv')
 
 startBtn.addEventListener('click', function () {
-  ipc.send('startServer')
+  var payload = {}
+  payload.targetIn = document.getElementById('targetIn').value;
+  payload.targetOut = document.getElementById('targetOut').value;
+  ipc.send('startServer',payload);
 });
 
 stopBtn.addEventListener('click', function(){
@@ -15,7 +18,7 @@ stopBtn.addEventListener('click', function(){
 });
 
 ipc.on('asynchronous-reply', function (event, arg) {
-  const message = `Asynchronous message reply: ${arg}`
+  const message = `Status: ${arg}`
   document.getElementById('serverReply').innerHTML = message
 })
 

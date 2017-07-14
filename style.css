@@ -1,0 +1,12 @@
+body{
+    background-color:dimgray;
+    overflow: hidden;
+}
+.element{
+width: 100%;
+margin: auto;
+}
+.wrapper{
+display:flex;
+ flex-flow: row wrap;
+}

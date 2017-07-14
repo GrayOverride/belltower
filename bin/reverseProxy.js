@@ -1,26 +1,33 @@
 var express = require('express');
 var proxyServer = express();
+var ip = require('ip');
+
 var httpProxy = require('http-proxy');
 var apiProxy = httpProxy.createProxyServer();
-const ipc = require('electron').ipcMain
+const ipc = require('electron').ipcMain;
+let proxyTarget = 'http://localhost:8080';
+let proxyEndpointPort = 9090;
 
-var proxyOne = 'http://localhost:8000';
-proxyServer.all("/*", function (req, res) {
-  apiProxy.web(req, res, { target: proxyOne });
+proxyServer.all("/", function (req, res, proxyTarget) {
+  console.log(req);
+  apiProxy.web(req, res, { target: proxyTarget });
 });
+
 
 ////////////////
 let mainServer;
 function startServer(event, arg) {
-    mainServer = proxyServer.listen(3000, '0.0.0.0', function () {
-      event.sender.send('asynchronous-reply', 'Server Listening')
+  console.log(arg);
+  var currentIp = ip.address();
+  arg.targetIn = "http://localhost:"+arg.targetIn;
+    mainServer = proxyServer.listen(parseInt(arg.targetOut), '0.0.0.0',arg.targetIn, function () {
+      event.sender.send('asynchronous-reply', 'Server proxy active: ['+arg.targetIn+" >> "+currentIp+":"+arg.targetOut + "]")
     });
-
 }
 
 function stopServer(event, arg){
   mainServer.close();
-  event.sender.send('asynchronous-reply', 'Server stoping')
+  event.sender.send('asynchronous-reply', 'Proxy stoping')
 }
 
 ipc.on('startServer', function (event, arg) {

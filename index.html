@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
 
+<head>
+  <meta charset="UTF-8">
+  <title>Prox</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
 
-    <button id="startSrv">Start</button>
-     <button id="stopSrv">Stop</button>
-    <div id="serverReply" class=""></div>
-  </body>
+<body>
 
-  <script>
-    // You can also require other files to run in this process
+  <div class="wrapper">
+    <label for="in">Localhost port in</label>
+    <input type="text" class="element" id ="targetIn"name="in" value=8080>
+     <label for="out">Proxy port Out</label>
+        <input type="text" class="element" id ="targetOut"name="out" value=9090>
+
+    <button id="startSrv" class="element">Start</button>
+    <button id="stopSrv"class="element">Stop</button>
+  </div>
+  <div id="serverReply" class="element"></div>
+</body>
+
+<script>
     require('./renderer.js')
   </script>
+
 </html>
